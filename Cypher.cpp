@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include <iostream>
 #include <string>
+#include <algorithm>
 #define MSG_SIZE 1000
 #define KEY_SIZE 100
 #define ASCII_VALUE 96
@@ -19,15 +20,17 @@ public :
 	
 	void ReadMessage()
 	{
+		cin.ignore();
 		cout << "Enter the message." << endl;
-		cin >> message;
+		getline(cin, message);
+		message.erase(remove(message.begin(), message.end(), ' '), message.end());
 		msgLength = message.length();
 	}
 
 	void ReadKey()
 	{
 		cout << "Enter the key." << endl;
-		cin >> key;
+		getline(cin, key);
 		keyLength = key.length();
 	}
 
@@ -37,11 +40,13 @@ public :
 
 		for (int index = 0; index < msgLength; index++)
 		{
+			message[index] = tolower(message[index]);
 			messageStream[index] = message[index] - ASCII_VALUE;
 		}
 
 		for (int index = 0; index < keyLength; index++)
 		{
+			key[index] = tolower(key[index]);
 			keyStream[index] = key[index] - ASCII_VALUE;
 		}
 
