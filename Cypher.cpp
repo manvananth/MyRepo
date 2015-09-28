@@ -52,7 +52,7 @@ public :
 				aindex = 0;
 			}
 			int temp = messageStream[index];
-			resultant[index] = (temp > 26 || temp < 1) ? messageStream[index] : ((keyStream[aindex] + messageStream[index]) % MOD_VALUE) + 1;
+			resultant[index] = (temp > MOD_VALUE || temp < 1) ? messageStream[index] : ((keyStream[aindex] + messageStream[index]) % MOD_VALUE) + 1;
 		}
 
 		char result[MSG_SIZE];
@@ -87,15 +87,15 @@ public :
 				aindex = 0;
 			}
 			int temp = messageStream[index];
-			int value = ((messageStream[index] - keyStream[aindex]) % 26) - 1;
-			resultant[index] = (temp > 26 || temp < 1) ? messageStream[index] : (value < 0 ? (26 + value) : value);
+			int value = ((messageStream[index] - keyStream[aindex]) % MOD_VALUE) - 1;
+			resultant[index] = (temp > MOD_VALUE || temp < 1) ? messageStream[index] : (value < 0 ? (MOD_VALUE + value) : value);
 		}
 
 		char result[MSG_SIZE];
 
 		for (int index = 0; index < msgLength; index++)
 		{
-			result[index] = (char)(resultant[index] + 96);
+			result[index] = (char)(resultant[index] + ASCII_VALUE);
 		}
 		result[msgLength] = '\0';
 
